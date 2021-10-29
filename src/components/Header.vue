@@ -77,6 +77,7 @@ header {
   padding: 30px 0;
   border-bottom: 1px solid hsl(220, 14%, 90%);
   position: relative;
+  margin-bottom: 90px;
 }
 
 nav ul {
