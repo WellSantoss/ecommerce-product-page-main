@@ -51,6 +51,9 @@ export default {
       this.carrinhoAtivo = false;
     },
   },
+  props: {
+    itens: Object,
+  },
 };
 </script>
 
