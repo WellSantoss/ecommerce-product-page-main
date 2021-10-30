@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 import Header from "./components/Header.vue";
 
 export default {
@@ -84,7 +83,6 @@ export default {
     this.getProduto();
   },
   components: {
-    HelloWorld,
     Header,
   },
 };
