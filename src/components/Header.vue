@@ -22,7 +22,26 @@
         <transition appear>
           <div v-show="carrinhoAtivo" class="cart">
             <span>Cart</span>
-            <div>
+            <div v-if="itens.length" class="item">
+              <ul>
+                <li v-for="(item, key) in cartItens" :key="key">
+                  <img src="../assets/thumb-1.jpg" alt="" />
+                  <span>
+                    <p>{{ item.nome }}</p>
+                    <p>
+                      {{ item.valor }} x{{ item.quantidade }}
+                      <strong>{{ item.valorTotal }}</strong>
+                    </p>
+                  </span>
+                  <img
+                    @click="removeCarrinho(key)"
+                    src="../assets/icon-delete.svg"
+                    alt=""
+                  />
+                </li>
+              </ul>
+            </div>
+            <div v-else class="empty">
               <p>Your cart is empty.</p>
             </div>
           </div>
@@ -40,11 +59,16 @@ export default {
   name: "Header",
   data() {
     return {
-      carrinhoAtivo: false,
+      carrinhoAtivo: true,
+      cartItens: this.itens,
     };
   },
   methods: {
+    removeCarrinho(index) {
+      this.cartItens.splice(index, 1);
+    },
     exibeCarrinho(e) {
+      console.log(this.itens);
       this.carrinhoAtivo = true;
     },
     ocultaCarrinho(e) {
@@ -52,7 +76,7 @@ export default {
     },
   },
   props: {
-    itens: Object,
+    itens: Array,
   },
 };
 </script>
@@ -116,7 +140,7 @@ nav ul {
   border-radius: 5px;
   background-color: white;
   box-shadow: -5px 5px 100px -30px rgba(0, 0, 0, 0.25);
-  width: 350px;
+  width: 360px;
   position: absolute;
   right: 0px;
   top: 0px;
@@ -124,26 +148,55 @@ nav ul {
   left: 50%;
   transform: translateX(-50%);
 
-  & > div {
+  .empty {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     min-height: 150px;
+
+    p {
+      text-align: center;
+      font-weight: 700;
+      color: hsl(219, 9%, 45%);
+    }
   }
 
-  span {
+  .item {
+    padding: 25px;
+    color: hsl(219, 9%, 45%);
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & img:first-child {
+        max-width: 50px;
+        border-radius: 8px;
+      }
+    }
+
+    span {
+      margin: 0px 15px;
+
+      & p:first-child {
+        margin-bottom: 5px;
+      }
+
+      strong {
+        font-weight: 700;
+        color: hsl(0, 0%, 0%);
+      }
+    }
+  }
+
+  & > span {
     display: block;
     color: hsl(0, 0%, 0%);
     border-bottom: 1px solid hsl(220, 14%, 90%);
     padding: 20px;
     font-weight: 700;
-  }
-
-  p {
-    text-align: center;
-    font-weight: 700;
-    color: hsl(219, 9%, 45%);
   }
 }
 </style>

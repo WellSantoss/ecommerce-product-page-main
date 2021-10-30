@@ -22,11 +22,19 @@
           }}</span>
           <div class="buttons-wrapper flex">
             <div class="quantidade flex">
-              <img src="./assets/icon-minus.svg" alt="Menos" />
+              <img
+                @click="descQuantidade"
+                src="./assets/icon-minus.svg"
+                alt="Menos"
+              />
               <span>{{ quantidade }}</span>
-              <img src="./assets/icon-plus.svg" alt="Mais" />
+              <img
+                @click="ascQuantidade"
+                src="./assets/icon-plus.svg"
+                alt="Mais"
+              />
             </div>
-            <button class="flex">
+            <button @click="addCarrinho" class="flex">
               <img src="./assets/icon-cart.svg" alt="Carrinho" /><span
                 >Add to cart</span
               >
@@ -45,7 +53,7 @@ export default {
   name: "App",
   data() {
     return {
-      itensCarrinho: {},
+      itensCarrinho: [],
       nome: "",
       descricao: "",
       valor: 0,
@@ -57,6 +65,26 @@ export default {
     };
   },
   methods: {
+    addCarrinho() {
+      this.itensCarrinho.push({
+        nome: this.nome,
+        quantidade: this.quantidade,
+        valor: this.formtatCurrency(this.valorDesconto),
+        valorTotal: this.formtatCurrency(this.valorDesconto * this.quantidade),
+      });
+
+      console.log(this.itensCarrinho);
+    },
+    ascQuantidade() {
+      if (this.quantidade < this.estoque) {
+        this.quantidade++;
+      }
+    },
+    descQuantidade() {
+      if (this.quantidade > 0) {
+        this.quantidade--;
+      }
+    },
     formtatCurrency(valor) {
       return valor.toLocaleString("en-US", {
         style: "currency",
@@ -175,6 +203,8 @@ export default {
       span {
         margin: 0 25px;
         font-weight: 700;
+        width: 10px;
+        text-align: center;
       }
     }
 
