@@ -60,20 +60,24 @@ export default {
       valorDesconto: 0,
       desconto: 0,
       estoque: 0,
-      quantidade: 0,
+      quantidade: 1,
       fotos: {},
     };
   },
   methods: {
     addCarrinho() {
-      this.itensCarrinho.push({
-        nome: this.nome,
-        quantidade: this.quantidade,
-        valor: this.formtatCurrency(this.valorDesconto),
-        valorTotal: this.formtatCurrency(this.valorDesconto * this.quantidade),
-      });
+      if (this.quantidade >= 1 && this.quantidade <= this.estoque) {
+        this.itensCarrinho.push({
+          nome: this.nome,
+          quantidade: this.quantidade,
+          valor: this.formtatCurrency(this.valorDesconto),
+          valorTotal: this.formtatCurrency(
+            this.valorDesconto * this.quantidade
+          ),
+        });
 
-      console.log(this.itensCarrinho);
+        this.estoque -= this.quantidade;
+      }
     },
     ascQuantidade() {
       if (this.quantidade < this.estoque) {
@@ -81,7 +85,7 @@ export default {
       }
     },
     descQuantidade() {
-      if (this.quantidade > 0) {
+      if (this.quantidade > 1) {
         this.quantidade--;
       }
     },

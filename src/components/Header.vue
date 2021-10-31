@@ -40,6 +40,7 @@
                   />
                 </li>
               </ul>
+              <button>Checkout</button>
             </div>
             <div v-else class="empty">
               <p>Your cart is empty.</p>
@@ -67,11 +68,10 @@ export default {
     removeCarrinho(index) {
       this.cartItens.splice(index, 1);
     },
-    exibeCarrinho(e) {
-      console.log(this.itens);
+    exibeCarrinho() {
       this.carrinhoAtivo = true;
     },
-    ocultaCarrinho(e) {
+    ocultaCarrinho() {
       this.carrinhoAtivo = false;
     },
   },
@@ -147,6 +147,7 @@ nav ul {
   margin-top: 20px;
   left: 50%;
   transform: translateX(-50%);
+  cursor: default;
 
   .empty {
     display: flex;
@@ -170,10 +171,15 @@ nav ul {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 20px;
 
       & img:first-child {
         max-width: 50px;
         border-radius: 8px;
+      }
+
+      & img:last-child {
+        cursor: pointer;
       }
     }
 
@@ -188,6 +194,19 @@ nav ul {
         font-weight: 700;
         color: hsl(0, 0%, 0%);
       }
+    }
+
+    button {
+      font-family: "Kumbh Sans", sans-serif;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background: hsl(26, 100%, 55%);
+      color: #fff;
+      font-weight: 700;
+      padding: 16px 0;
+      cursor: pointer;
+      width: 100%;
     }
   }
 
