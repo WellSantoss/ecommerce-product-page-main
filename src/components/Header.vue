@@ -18,7 +18,11 @@
         v-on:mouseenter="exibeCarrinho"
         v-on:mouseleave="ocultaCarrinho"
         class="cart-icon"
-        ><img src="../assets/icon-cart.svg" alt="Cart" />
+      >
+        <span class="qtde-carrinho" v-if="qtdeCarrinho > 0">{{
+          qtdeCarrinho
+        }}</span>
+        <img src="../assets/icon-cart.svg" alt="Cart" />
         <transition appear>
           <div v-show="carrinhoAtivo" class="cart">
             <span>Cart</span>
@@ -58,9 +62,12 @@
 <script>
 export default {
   name: "Header",
+  props: {
+    itens: Array,
+  },
   data() {
     return {
-      carrinhoAtivo: true,
+      carrinhoAtivo: false,
       cartItens: this.itens,
     };
   },
@@ -75,8 +82,12 @@ export default {
       this.carrinhoAtivo = false;
     },
   },
-  props: {
-    itens: Array,
+  computed: {
+    qtdeCarrinho() {
+      return this.cartItens.reduce((acc, item) => {
+        return acc + item.quantidade;
+      }, 0);
+    },
   },
 };
 </script>
@@ -134,6 +145,18 @@ nav ul {
 
 .cart-icon {
   position: relative;
+
+  .qtde-carrinho {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 0px 6px;
+    border-radius: 40%;
+    color: #fff;
+    background: hsl(26, 100%, 55%);
+  }
 }
 
 .cart {
