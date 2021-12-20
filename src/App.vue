@@ -4,7 +4,7 @@
 
     <main>
       <div class="container">
-        <div class="teste"></div>
+        <Galeria :fotos="fotos" />
         <div class="prod-info">
           <h2>Sneaker Company</h2>
           <h1>{{ nome }}</h1>
@@ -48,6 +48,7 @@
 
 <script>
 import Header from "./components/Header.vue";
+import Galeria from "./components/Galeria.vue";
 
 export default {
   name: "App",
@@ -116,6 +117,7 @@ export default {
   },
   components: {
     Header,
+    Galeria,
   },
 };
 </script>
@@ -139,11 +141,6 @@ export default {
   align-items: center;
   gap: 125px;
   padding: 0 45px;
-
-  .teste {
-    min-height: 565px;
-    background: tomato;
-  }
 
   .prod-info {
     h2 {

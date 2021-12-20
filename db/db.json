@@ -8,8 +8,8 @@
       "desconto": 50,
       "estoque": 5,
       "fotos": {
-        "imagem": ["image-1", "image-2", "image-3", "image-4"],
-        "thumb": ["thumb-1", "thumb-2", "thumb-3", "thumb-4"]
+        "imagem": ["image-1.jpg", "image-2.jpg", "image-3.jpg", "image-4.jpg"],
+        "thumb": ["thumb-1.jpg", "thumb-2.jpg", "thumb-3.jpg", "thumb-4.jpg"]
       }
     }
   ]
