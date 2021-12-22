@@ -1,12 +1,20 @@
 <template>
   <div class="galeria">
-    <a @click="exibe" href="" class="principal"
-      ><img :src="require(`@/assets/${fotos.imagem[0]}`)"
-    /></a>
+    <div class="principal">
+      <img
+        v-if="imagemPrincipal"
+        :src="require(`@/assets/${imagemPrincipal}`)"
+      />
+    </div>
 
-    <a href="" v-for="foto in fotos.thumb" :key="foto"
-      ><img :src="require(`@/assets/${foto}`)"
-    /></a>
+    <div
+      v-for="(thumb, i) in thumbs"
+      :class="{ active: thumbAtivo == i }"
+      :key="i"
+      @click="changePrincipal(i)"
+    >
+      <img :src="require(`@/assets/${thumb}`)" />
+    </div>
   </div>
 </template>
 
@@ -16,12 +24,28 @@ export default {
   props: {
     fotos: Object,
   },
+  data() {
+    return {
+      imagemPrincipal: null,
+      thumbAtivo: 0,
+      imagens: [],
+      thumbs: [],
+    };
+  },
   methods: {
-    exibe(e) {
-      e.preventDefault();
-      console.log(this.fotos);
+    changePrincipal(index) {
+      this.imagemPrincipal = this.imagens[index];
+      this.thumbAtivo = index;
     },
   },
+  watch: {
+    fotos() {
+      this.imagemPrincipal = this.fotos.imagem[0];
+      this.imagens = this.fotos.imagem;
+      this.thumbs = this.fotos.thumb;
+    },
+  },
+  computed: {},
 };
 </script>
 
@@ -29,15 +53,28 @@ export default {
 .galeria {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 4fr 1fr;
+  grid-template-rows: 5fr 1fr;
   gap: 30px;
 
-  img {
-    border-radius: 15px;
-  }
+  div {
+    border-radius: 17px;
+    cursor: pointer;
 
-  .principal {
-    grid-column: 1/5;
+    img {
+      border-radius: 15px;
+    }
+
+    &.principal {
+      grid-column: 1/5;
+    }
+
+    &.active {
+      border: 2px solid hsl(26, 100%, 55%);
+
+      img {
+        filter: opacity(40%);
+      }
+    }
   }
 }
 </style>
