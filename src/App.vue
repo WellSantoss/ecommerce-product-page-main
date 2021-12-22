@@ -140,7 +140,7 @@ export default {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 125px;
-  padding: 0 45px;
+  padding: 90px 45px;
 
   .prod-info {
     h2 {
